@@ -7,7 +7,7 @@ output: html_document
 
 ## Loading and preprocessing the data
 
-#### *1. Load the data *
+#### *1. Load the data*
 
 ```r
 if(!file.exists('activity.csv')){
