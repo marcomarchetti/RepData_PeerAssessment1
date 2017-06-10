@@ -250,20 +250,10 @@ head(activityStepsByDay)
 
 <pre><code class="r">activityStepsByDayMean &lt;- mean(activityStepsByDay$steps)
 activityStepsByDayMedian &lt;- median(activityStepsByDay$steps)
-activityStepsByDayMean
 </code></pre>
 
-<pre><code>## [1] 10766.19
-</code></pre>
-
-<pre><code class="r">activityStepsByDayMedian
-</code></pre>
-
-<pre><code>## [1] 10765
-</code></pre>
-
-<p>The mean is 1.07662 &times; 10<sup>4</sup><br/>
-The median is 1.0765 &times; 10<sup>4</sup>  </p>
+<p>The mean is <strong>1.07662 &times; 10<sup>4</sup></strong><br/>
+The median is <strong>1.0765 &times; 10<sup>4</sup></strong>  </p>
 
 <h2>What is the average daily activity pattern?</h2>
 
@@ -285,44 +275,26 @@ plot(activityStepsByInterval$interval,activityStepsByInterval$meanSteps,
 <h4><em>2. Which 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps</em></h4>
 
 <pre><code class="r">maxStepsAvg &lt;-which.max(activityStepsByInterval$meanSteps)
-maxStepsAvg
+maxStepAvgValue &lt;- activityStepsByInterval[maxStepsAvg,&#39;meanSteps&#39;]
+maxStepAvgInterval &lt;- activityStepsByInterval[maxStepsAvg,&#39;interval&#39;]
 </code></pre>
 
-<pre><code>## [1] 104
-</code></pre>
-
-<pre><code class="r">maxStepAvgValue &lt;- activityStepsByInterval[maxStepsAvg,&#39;meanSteps&#39;]
-maxStepAvgValue
-</code></pre>
-
-<pre><code>## [1] 206.1698
-</code></pre>
-
-<pre><code class="r">maxStepAvgInterval &lt;- activityStepsByInterval[maxStepsAvg,&#39;interval&#39;]
-maxStepAvgInterval
-</code></pre>
-
-<pre><code>## [1] 835
-</code></pre>
-
-<p>The 5-minute interval, on average across all the days in the data set, containing the maximum number of steps is 835</p>
+<p>The 5-minute interval, on average across all the days in the data set, containing the maximum number of steps is <strong>835</strong><br/>
+The maximum number of steps is <strong>206.2</strong></p>
 
 <h2>Imputing missing values</h2>
 
 <h4><em>1. Calculate and report the total number of missing values in the dataset</em></h4>
 
 <pre><code class="r">numMissingValues &lt;- sum(is.na(activityData$steps))
-numMissingValues
 </code></pre>
 
-<pre><code>## [1] 2304
-</code></pre>
-
-<p>The the total number of missing values in the dataset is 2304 </p>
+<p>The the total number of missing values in the dataset is <strong>2304</strong></p>
 
 <h4><em>2. Devise a strategy for filling in all of the missing values in the dataset. The strategy does not need to be sophisticated. For example, you could use the mean/median for that day, or the mean for that 5-minute interval, etc.</em></h4>
 
-<p>New data set <code>activityDataImputed</code> is filled using the mean (impute function package Hmisc) </p>
+<p>New data set <code>activityDataImputed</code> is filled using the steps mean.<br/>
+(<code>impute</code> function from the package <code>Hmisc</code>) </p>
 
 <h4><em>3. Create a new dataset that is equal to the original dataset but with the missing data filled in.</em></h4>
 
@@ -344,23 +316,17 @@ hist(activityStepsByDayImputed$steps,
 <p><img src="data:image/png;base64,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" alt="plot of chunk unnamed-chunk-10"/></p>
 
 <pre><code class="r">activityStepsByDayImputedMean &lt;- mean(activityStepsByDayImputed$steps)
-activityStepsByDayImputedMean
+activityStepsByDayImputedMedian&lt;- median(activityStepsByDayImputed$steps)
 </code></pre>
 
-<pre><code>## [1] 10766.19
-</code></pre>
+<p>The mean is <strong>1.0766189 &times; 10<sup>4</sup></strong><br/>
+The median is <strong>1.0766189 &times; 10<sup>4</sup></strong></p>
 
-<pre><code class="r">activityStepsByDayImputedMedian&lt;- median(activityStepsByDayImputed$steps)
-activityStepsByDayImputedMedian
-</code></pre>
+<h4><em>Do these values differ from the estimates from the first part of the assignment?</em></h4>
 
-<pre><code>## [1] 10766.19
-</code></pre>
+<p>While the mean value remains unchanged, the median value has shifted and matches to the mean.</p>
 
-<p>The mean is 1.0766189 &times; 10<sup>4</sup><br/>
-The median is 1.0766189 &times; 10<sup>4</sup></p>
-
-<h4><em>Do these values differ from the estimates from the first part of the assignment? What is the impact of imputing missing data on the estimates of the total daily number of steps?</em></h4>
+<h4><em>What is the impact of imputing missing data on the estimates of the total daily number of steps?</em></h4>
 
 <pre><code class="r">hist(activityStepsByDayImputed$steps,
      breaks = 16,

@@ -45,12 +45,10 @@ hist(activityStepsByDay$steps, main = "Total number of steps taken each day",
 ```{r}
 activityStepsByDayMean <- mean(activityStepsByDay$steps)
 activityStepsByDayMedian <- median(activityStepsByDay$steps)
-activityStepsByDayMean
-activityStepsByDayMedian
 ```
 
-The mean is `r round(activityStepsByDayMean,1)`  
-The median is `r round(activityStepsByDayMedian,1)`  
+The mean is **`r round(activityStepsByDayMean,1)`**  
+The median is **`r round(activityStepsByDayMedian,1)`**  
 
 ## What is the average daily activity pattern?
 
@@ -70,30 +68,26 @@ plot(activityStepsByInterval$interval,activityStepsByInterval$meanSteps,
 #### *2. Which 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps*
 ```{r}
 maxStepsAvg <-which.max(activityStepsByInterval$meanSteps)
-maxStepsAvg
-
 maxStepAvgValue <- activityStepsByInterval[maxStepsAvg,'meanSteps']
-maxStepAvgValue
-
 maxStepAvgInterval <- activityStepsByInterval[maxStepsAvg,'interval']
-maxStepAvgInterval
 ```
 
-The 5-minute interval, on average across all the days in the data set, containing the maximum number of steps is `r maxStepAvgInterval`
+The 5-minute interval, on average across all the days in the data set, containing the maximum number of steps is **`r maxStepAvgInterval`**  
+The maximum number of steps is **`r round(maxStepAvgValue,1)`**
 
 ## Imputing missing values
 
 #### *1. Calculate and report the total number of missing values in the dataset*
 ```{r}
 numMissingValues <- sum(is.na(activityData$steps))
-numMissingValues
 ```
 
-The the total number of missing values in the dataset is `r numMissingValues` 
+The the total number of missing values in the dataset is **`r numMissingValues`**
 
 #### *2. Devise a strategy for filling in all of the missing values in the dataset. The strategy does not need to be sophisticated. For example, you could use the mean/median for that day, or the mean for that 5-minute interval, etc.*
 
-New data set `activityDataImputed` is filled using the mean (impute function package Hmisc) 
+New data set `activityDataImputed` is filled using the steps mean.  
+(`impute` function from the package `Hmisc`) 
 
 #### *3. Create a new dataset that is equal to the original dataset but with the missing data filled in.*
 ```{r}
@@ -112,18 +106,18 @@ hist(activityStepsByDayImputed$steps,
      xlab="Steps",
      ylab="Frequency")
 
-
 activityStepsByDayImputedMean <- mean(activityStepsByDayImputed$steps)
-activityStepsByDayImputedMean
 activityStepsByDayImputedMedian<- median(activityStepsByDayImputed$steps)
-activityStepsByDayImputedMedian
-
 ```
 
-The mean is `r activityStepsByDayImputedMean`  
-The median is `r activityStepsByDayImputedMedian`
+The mean is **`r activityStepsByDayImputedMean`**  
+The median is **`r activityStepsByDayImputedMedian`**
 
-#### *Do these values differ from the estimates from the first part of the assignment? What is the impact of imputing missing data on the estimates of the total daily number of steps?*
+#### *Do these values differ from the estimates from the first part of the assignment?* 
+
+While the mean value remains unchanged, the median value has shifted and matches to the mean.
+
+#### *What is the impact of imputing missing data on the estimates of the total daily number of steps?*
 ```{r}
 hist(activityStepsByDayImputed$steps,
      breaks = 16,
